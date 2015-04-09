@@ -35,17 +35,17 @@
  *
  */
 unsigned char myarray [17] = {0b00000010,0b10011111,0b00100101,0b00001101,
-							  0b10011001,0b01001001,0b11000001,0b00011111,
-							  0b00000001,0b00011001,0b00010001,0b11000001,
-							  0b11100101,0b10000101,0b01100001,0b01110001,
-							  0b11111111};
+			  0b10011001,0b01001001,0b11000001,0b00011111,
+			  0b00000001,0b00011001,0b00010001,0b11000001,
+			  0b11100101,0b10000101,0b01100001,0b01110001,
+			  0b11111111};
 
 /* Matrix array for my keypad isr.*/
 
 unsigned char mybutton [4][4] = {1,2,3,10, 
-								 4,5,6,11, 
-								 7,8,9,12,
-								 0,0,0,13};
+				 4,5,6,11, 
+				 7,8,9,12,
+				 0,0,0,13};
 
 unsigned char key,i;
 
@@ -59,10 +59,10 @@ if(INTCONbits.RBIF==1){
 	PORTBbits.RB2=1;
 	PORTBbits.RB3=1;
 	PORTBbits.RB0=0;
-		if(PORTBbits.RB4==0) {key=mybutton[0][0]; while(PORTBbits.RB4==0);}	//1
-		if(PORTBbits.RB5==0) {key=mybutton[0][1]; while(PORTBbits.RB5==0);}	//2
-		if(PORTBbits.RB6==0) {key=mybutton[0][2]; while(PORTBbits.RB6==0);}	//3
-		if(PORTBbits.RB7==0) {key=mybutton[0][3]; while(PORTBbits.RB7==0);}	//A
+		if(PORTBbits.RB4==0) {key=mybutton[0][0]; while(PORTBbits.RB4==0);}//1
+		if(PORTBbits.RB5==0) {key=mybutton[0][1]; while(PORTBbits.RB5==0);}//2
+		if(PORTBbits.RB6==0) {key=mybutton[0][2]; while(PORTBbits.RB6==0);}//3
+		if(PORTBbits.RB7==0) {key=mybutton[0][3]; while(PORTBbits.RB7==0);}//A
 	PORTBbits.RB0=1;
 	PORTBbits.RB1=0;
 		if(PORTBbits.RB4==0) {key=mybutton[1][0]; while(PORTBbits.RB4==0);} //4
