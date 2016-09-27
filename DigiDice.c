@@ -45,49 +45,49 @@ unsigned char myval;
 
 void main (void){
 
-    OSCCON=0b01110011;						//Speed up and run 'stable'
-    OSCTUNEbits.PLLEN=1;					//32MHz whoa
-    ADCON1=0x0f;                            //All digital, had trouble with one light
-    INTCON2bits.RBPU=0;                     //Pull up them pins!
-    T3CONbits.TMR3ON = 1;                   //Start timer
-    TRISA=0x00;                             //PortA all outputs for the LEDs
-    PORTA=0x0f;                             //PortA all high just in case
-    TRISB=0xff;                             //PortB inputs for the push button
-    j=5000;                                 //How long does it take to see? Look below
-    PORTA=0xff;                             //Initial state
+    OSCCON=0b01110011;			//Speed up and run 'stable'
+    OSCTUNEbits.PLLEN=1;		//32MHz whoa
+    ADCON1=0x0f;			//All digital, had trouble with one light
+    INTCON2bits.RBPU=0;			//Pull up them pins!
+    T3CONbits.TMR3ON = 1;		//Start timer
+    TRISA=0x00;				//PortA all outputs for the LEDs
+    PORTA=0x0f;				//PortA all high just in case
+    TRISB=0xff;				//PortB inputs for the push button
+    j=5000;				//How long does it take to see? Look below
+    PORTA=0xff;				//Initial state
     while(0){
         PORTA=diceval[2];
     }
     while(1){
-        while(Button == 1){                 //Wait for button to be pressed... do it
+        while(Button == 1){		//Wait for button to be pressed... do it
             _asm
             CLRWDT
             _endasm
         }
-		while(Button == 0){                 //Oh Snap! Button is pressed!
+	while(Button == 0){		//Oh Snap! Button is pressed!
             _asm
             CLRWDT
             _endasm
 			
-            do{                             //Do as I say!
+            do{					//Do as I say!
                 val = TMR3L&0b00000111;		//Get a random number
-            }while(val>5);                  //Wait for a legit dice roll
+            }while(val>5);			//Wait for a legit dice roll
 			
-            x++;                            //'Roll' dice while button is down
-            if(x>5)x=0;                     //5 High No More!
-            myval = diceval[x];             //Where am I?
-            PORTA=myval;                   	//Show current 'roll'
-            for (i=0;i<10000;i++);          //Slow down I cant see!
+            x++;				//'Roll' dice while button is down
+            if(x>5)x=0;				//5 High No More!
+            myval = diceval[x];			//Where am I?
+            PORTA=myval;			//Show current 'roll'
+            for (i=0;i<10000;i++);		//Slow down I cant see!
         }
-        for (l=0;l<5;l++){					//Roll is done, show a fake roll
+        for (l=0;l<5;l++){			//Roll is done, show a fake roll
             for(x=0;x<6;x++){
                 _asm
                 CLRWDT
                 _endasm
-                PORTA=diceval[x];			//Roll some dice
-                for (i=0;i<j;i++);			//Slow down I cant see!
+                PORTA=diceval[x];		//Roll some dice
+                for (i=0;i<j;i++);		//Slow down I cant see!
                 }
             }
-        PORTA=diceval[val];                 //Show the real final result without knowing
+        PORTA=diceval[val];			 //Show the real final result without knowing
     }
 }
